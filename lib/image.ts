@@ -1,2 +1,2 @@
 // global
-export const Default = "/images/global/default.png";
+export const Default = "/images/global/default-image.png";

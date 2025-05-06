@@ -3,36 +3,62 @@
 import store from "@/store";
 import CDialog from "@/shared/custome/c-dialog";
 import DConfirmation from "./d-confirmation";
+import { useBreakpoint } from "@/lib/hooks";
+import CDrawer from "../custome/c-drawer";
 
 export default function CoreDialog() {
-  const { dialog: modal, closeDialog: closeModal } = store();
-  const open = modal?.open;
-  const modalName = modal?.modalName;
-  const paddingContent = modal?.paddingContent;
-  const headerTitle = modal?.headerTitle;
-  const showHeader = modal?.showHeader;
-  const height = modal?.height || "";
-  const width = modal?.width || "";
-  const headerClassName = modal?.headerClassName || "";
+  const { dialog, drawer, closeDrawer, closeDialog } = store();
+  const open = dialog?.open || drawer?.open || false;
+  const id = dialog?.id || drawer?.id;
+  const showClose = dialog?.showClose || drawer?.showClose;
+  const paddingContent = dialog?.paddingContent || drawer?.paddingContent;
+  const headerTitle = dialog?.headerTitle || drawer?.headerTitle;
+  const showHeader = dialog?.showHeader;
+  const height = dialog?.height || drawer?.height || "";
+  const width = dialog?.width || "";
+  const headerClassName = dialog?.headerClassName || "";
+  const { isMobile } = useBreakpoint();
 
-  const ModalContent = () => {
-    switch (modalName) {
+  const Content = () => {
+    switch (id) {
       case "CONFRIMATION":
         return <DConfirmation />;
     }
   };
-  return open ? (
-    <CDialog
-      paddingContent={paddingContent}
-      open={open}
-      headerTitle={headerTitle}
-      showHeader={showHeader}
-      height={height}
-      width={width}
-      setIsOpen={() => closeModal}
-      headerClassName={headerClassName}
-    >
-      <ModalContent />
-    </CDialog>
-  ) : null;
+
+  const renderContent = () => {
+    switch (isMobile) {
+      case true:
+        return (
+          <CDrawer
+            open={open}
+            setIsOpen={() => closeDrawer}
+            headerTitle={headerTitle}
+            height={height}
+            paddingContent={paddingContent}
+            showClose={showClose}
+          >
+            <Content />
+          </CDrawer>
+        );
+      default:
+        return (
+          <CDialog
+            paddingContent={paddingContent}
+            open={open}
+            headerTitle={headerTitle}
+            showHeader={showHeader}
+            height={height}
+            width={width}
+            setIsOpen={() => closeDialog}
+            headerClassName={headerClassName}
+            showClose={showClose}
+          >
+            <Content />
+          </CDialog>
+        );
+    }
+  };
+
+  return open ? renderContent() : null;
 }

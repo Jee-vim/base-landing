@@ -1,7 +1,9 @@
-declare interface CButton {
-  icon?: string;
+declare interface CButton
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  icon?: string | React.ReactNode;
   className?: string;
   onClick?: () => void;
+  disable?: boolean;
   variant?:
     | "default"
     | "secondary"
@@ -9,7 +11,7 @@ declare interface CButton {
     | "outline"
     | "ghost"
     | "link";
-  size?: "default" | "sm" | "lg" | "icon";
+  size?: "default" | "sm" | "lg" | "icon" | "none";
   font?: "nrl" | "mdm" | "sbd" | "bd";
 }
 
@@ -30,6 +32,43 @@ declare interface ICTable {
   setSelect?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
+declare interface IFieldInput
+  extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
+  field?: any;
+  label?: string;
+  className?: string;
+  classNameParent?: string;
+  iconSvg?: any;
+  iconImg?: any;
+  iconSize?: number;
+}
+
+interface ICinput extends IFieldInput {
+  name: string;
+  label?: string;
+  validators?: any;
+  form: any; // NOTE if u know the type of form, please let me know or just open pr
+}
+
+declare interface ITextArea {
+  value: string;
+  placeholder?: string;
+  className?: string;
+  isError?: boolean;
+}
+
+declare interface CSelect {
+  field?: any;
+  options: IOpt[];
+  label?: string;
+  placeholder?: string;
+  className?: string;
+  classNameParent?: string;
+  iconSvg?: any;
+  iconImg?: any;
+  iconSize?: number;
+}
+
 declare type CImage = {
   src: any;
   alt: string;
@@ -48,13 +87,13 @@ declare interface IModal {
   headerClassName?: string;
   footerTitle?: string;
   data?: any;
-  modalName: string;
+  id: string;
   height?: string;
   width?: string;
   paddingContent?: boolean;
   headerTitleClassName?: string;
   showHeader?: boolean;
-  messaging?: boolean;
+  showClose?: boolean;
 }
 
 declare interface CModal {
@@ -71,15 +110,17 @@ declare interface CModal {
   width: string;
   children: React.ReactNode;
   setIsOpen: (open: boolean) => void;
+  showClose?: boolean;
 }
 
 declare interface IDrawer {
   open?: boolean;
   headerTitle?: string;
-  drawerName: string;
+  id: string;
   data?: null | any;
   height: string;
   paddingContent?: boolean;
+  showClose?: boolean;
 }
 
 declare interface CDrawer {
@@ -89,6 +130,7 @@ declare interface CDrawer {
   setIsOpen: () => void;
   headerTitle?: string;
   paddingContent?: boolean;
+  showClose?: boolean;
 }
 
 declare interface IRootStore {
@@ -102,3 +144,43 @@ declare interface IRootStore {
   setOpenDrawer: (drawer: IDrawer) => void;
   closeDrawer: () => void;
 }
+
+declare interface IDynamicList {
+  isLoading: boolean;
+  item: any[];
+  classNameLoading?: string;
+  classNameEmpty?: string;
+  className?: string;
+  render: (item: any, id: number) => React.ReactNode;
+  id?: string;
+  titleEmpty?: string;
+  descriptionEmpty?: string;
+  length?: number;
+}
+
+declare interface ICarousel {
+  arrowPosition?:
+    | "inside"
+    | "inside-right"
+    | "inside-left"
+    | "outside-top"
+    | "outside-bottom";
+  dotPosition?: "inside" | "outside";
+  dotAlign?: "start" | "center" | "end";
+  showArrow?: boolean;
+  children: React.ReactNode;
+}
+
+declare type CCarouselWithDots = ICarousel & {
+  showDots: true;
+  current: number;
+  setCurrent: React.Dispatch<React.SetStateAction<number>>;
+};
+
+declare type CCarouselWithoutDots = ICarousel & {
+  showDots?: false;
+  current?: never;
+  setCurrent?: never;
+};
+
+declare type CCarousel = CCarouselWithDots | CCarouselWithoutDots;

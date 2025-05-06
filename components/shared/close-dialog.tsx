@@ -13,7 +13,7 @@ export default function CloseModal() {
     <button
       type="button"
       onClick={handleClose}
-      className="absolute right-4 top-3"
+      className="absolute right-4 top-4"
     >
       <IoMdClose size={20} />
     </button>

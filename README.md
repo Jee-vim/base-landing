@@ -1,6 +1,7 @@
 ### TODO
 
-- update to next latest
-- move to pnpm
-- CSelect
-- CCarousel
+- c-multi-select
+- c-popover
+- c-dropdown with input search
+- notify
+- error page

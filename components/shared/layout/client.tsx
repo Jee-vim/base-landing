@@ -3,22 +3,19 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import useAuthStore from "@/store";
 import CoreDialog from "../dialog/core";
-import CoreDrawer from "../drawer/core";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
+import Loading from "../loading";
 
 export default function Client({ children }: { children: React.ReactNode }) {
-  const {
-    loading,
-    clearLoading,
-    closeDialog: closeModal,
-    closeDrawer,
-  } = useAuthStore();
+  const { loading, clearLoading, closeDialog, closeDrawer } = useAuthStore();
   const path = usePathname();
 
   useEffect(() => {
-    clearLoading();
-    closeModal();
-    closeDrawer();
+    if (path) {
+      clearLoading();
+      closeDialog();
+      closeDrawer();
+    }
   }, [path]);
 
   useEffect(() => {
@@ -29,11 +26,11 @@ export default function Client({ children }: { children: React.ReactNode }) {
 
   return (
     <>
+      {loading && <Loading isBg />}
       <CoreDialog />
-      <CoreDrawer />
       <ProgressBar
         height="4px"
-        color="#3b82f6"
+        color="var(--primary)"
         options={{ showSpinner: false }}
         shallowRouting
       />

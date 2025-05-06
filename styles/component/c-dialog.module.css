@@ -1,8 +1,10 @@
-.modal_wrap_content {
+@reference "../../app/globals.css";
+
+.content {
   @apply flex flex-col gap-[16px] gap-0 overflow-hidden rounded-[12px] bg-background p-[16px] focus-visible:outline-none;
   z-index: 99;
 }
 
-.modal_dialog_title {
-  @apply text-base font-semibold text-neutral-950 mb-5;
+.title {
+  @apply text-base font-semibold text-foreground mb-5;
 }

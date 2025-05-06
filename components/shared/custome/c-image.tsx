@@ -28,7 +28,7 @@ const CImage = ({
         rounded,
         {
           "rounded-none": !rounded,
-          "wave-animation !bg-[#cbd5e0]": isLoading,
+          "wave-animation bg-[#cbd5e0]!": isLoading,
         },
       )}
     >
@@ -37,7 +37,7 @@ const CImage = ({
           "object-cover duration-700 ease-in-out object-center scale-100 blur-0",
           className,
           {
-            "!scale-125 !blur-xl": isLoading,
+            "scale-125! blur-xl!": isLoading,
           },
         )}
         src={link}

@@ -14,9 +14,11 @@ export default function CButton({
   onClick,
   font,
   children,
+  ...props
 }: CButton & CButtonProps) {
   return (
     <Button
+      {...props}
       font={font}
       size={size}
       onClick={onClick}

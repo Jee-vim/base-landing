@@ -18,29 +18,19 @@ const CModal = ({
   headerTitle,
   paddingContent = true,
   headerClassName,
+  showClose,
 }: CModal) => {
   return (
     <Dialog open={open} onOpenChange={setIsOpen}>
       <DialogContent
-        className={cn(
-          styles.modal_wrap_content,
-          height,
-          width,
-          !paddingContent && "!p-0",
-        )}
+        className={cn(styles.content, height, width, !paddingContent && "p-0!")}
       >
         {showHeader && (
-          <DialogHeader>
-            <DialogTitle
-              className={cn(
-                styles.modal_dialog_title,
-                headerClassName,
-                !paddingContent && "!p-5",
-              )}
-            >
+          <DialogHeader className={cn(showClose && "text-left")}>
+            <DialogTitle className={cn(styles.title, headerClassName)}>
               {headerTitle}
             </DialogTitle>
-            <CloseDialog />
+            {showClose && <CloseDialog />}
           </DialogHeader>
         )}
 

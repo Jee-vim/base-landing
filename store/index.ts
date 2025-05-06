@@ -3,7 +3,7 @@ import { create } from "zustand";
 const initialDrawer = {
   open: false,
   headerTitle: "",
-  drawerName: "",
+  id: "",
   data: null,
   height: "",
   paddingContent: true,
@@ -15,7 +15,7 @@ const initialDialog = {
   headerTitle: "",
   headerClassName: "",
   headerTitleClassName: "",
-  modalName: "",
+  id: "",
   data: null,
   width: "h-[70vh]",
   height: "w-[70vw]",
