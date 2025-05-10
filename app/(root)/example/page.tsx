@@ -8,6 +8,7 @@ import DemoCarousel from "@/components/module/example/demo-carousel";
 import Pagination from "@/components/shared/pagination";
 import DemoInput from "@/components/module/example/demo-input";
 import DemoDropdown from "@/components/module/example/demo-dropdown";
+import DemoLottie from "@/components/module/example/demo-lottie";
 
 export default function Page() {
   const { setOpenDialog } = store();
@@ -43,6 +44,7 @@ export default function Page() {
       </Suspense>
       <DemoInput />
       <DemoDropdown />
+      <DemoLottie />
     </div>
   );
 }
